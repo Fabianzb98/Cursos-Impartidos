@@ -1,24 +1,25 @@
+from distutils.log import debug
 from flask import Flask, request, render_template, flash, jsonify, redirect, url_for
 import json
 import mysql.connector 
 from mysql.connector import errorcode
 
-# #CONEXION A BASE DE DATOS
-# try:
-#   cnx = mysql.connector.connect(user='root',password='',host='localhost',database='curso')
-# except mysql.connector.Error as err:
-#   if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-#     print("error de usuario o contraseña")
-#   elif err.errno == errorcode.ER_BAD_DB_ERROR:
-#     print("No existe la base de datos")
-#   else:
-#     print(err)
-# else:
-#   print('Conexion Exitosa')
-#   cnx.close()
+#CONEXION A BASE DE DATOS
+try:
+  cnx = mysql.connector.connect(user='root',password='',host='localhost',database='curso')
+except mysql.connector.Error as err:
+  if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+    print("error de usuario o contraseña")
+  elif err.errno == errorcode.ER_BAD_DB_ERROR:
+    print("No existe la base de datos")
+  else:
+    print(err)
+else:
+  print('Conexion Exitosa')
+  cnx.close()
 
-# cnx = mysql.connector.connect(user='root',password='',host='localhost',database='curso')
-# mycursor = cnx.cursor()
+cnx = mysql.connector.connect(user='root',password='',host='localhost',database='curso')
+mycursor = cnx.cursor()
 
 app = Flask(__name__)
 
@@ -38,12 +39,25 @@ def search():
 def contact():  
     return render_template('/contact.html')
 
-@app.route("/results",  methods = ['POST'])
+@app.route('/ejemplo')
+def ejemplo():
+    mycursor.execute('SELECT * FROM zapatos')
+    data = mycursor.fetchall()
+    print(data)
+    return render_template('results.html', lista = data)
+
+@app.route("/results",  methods = ['GET','POST'])
 def results():
     if request.method == 'POST':
-        project = request.form.get('marca')
-        print(project)
-        
-    return render_template('/results.html')
+        marca = request.form.get('marca')
 
-app.run()
+    sentence = "SELECT * FROM zapatos WHERE marca = " + "'" + marca + "';"  
+    mycursor.execute(sentence)
+
+    data = mycursor.fetchall()
+    print(data)
+    return render_template('/results.html', lista = data)
+
+
+
+app.run(debug=True)

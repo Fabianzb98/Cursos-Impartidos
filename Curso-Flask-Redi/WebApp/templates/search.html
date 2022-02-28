@@ -55,28 +55,28 @@
                         <div class="my-5">
                             <form action="{{ url_for('results') }}" method="POST" name="buscar" onSubmit="return ValidateInsert()">
                                 <div class="row">
-                                <!-- Order Number -->
+                                <!-- Marca -->
                                 <div class="col">
                                     <div class="form-group">
                                     <label for="marca">Marca</label>
                                     <input type="text" class="form-control form-control-sm" id="marca" name="marca">
                                     </div>
                                 </div>
-                                <!-- Machine Type -->
+                                <!-- Tipo Zapato -->
                                 <div class="col">
                                     <div class="form-group">
                                     <label for="tipo_zapato">Tipo Zapato</label>
                                     <input type="text" class="form-control form-control-sm" id="tipo_zapato" name="tipo_zapato">
                                     </div>
                                 </div>
-                                <!-- Model -->
+                                <!-- Color -->
                                 <div class="col">
                                     <div class="form-group">
                                     <label for="color">Color</label>
                                     <input type="text" class="form-control form-control-sm" id="color" name="color">
                                     </div>
                                 </div>
-                                <!-- MTM -->
+                                <!-- Talla -->
                                 <div class="col">
                                     <div class="form-group">
                                     <label for="talla">Talla</label>
@@ -84,8 +84,7 @@
                                     </div>
                                 </div>
                                 </div>
-                                <!-- Clear and Find Buttons-->
-                                <hr id="thread2">
+                                <!-- Find Button-->
                                 <button class="btn btn-primary mb-3" type="submit" name="buscar">Buscar</button>
                             </form>  
                         </div>
